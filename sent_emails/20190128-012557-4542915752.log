@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on localhost:8000
+From: webmaster@localhost
+To: scivarolo@gmail.com
+Date: Mon, 28 Jan 2019 01:25:57 -0000
+Message-ID: <154863875700.15293.792431510055135715@sebastians-mbp.lan>
+
+
+You're receiving this email because you requested a password reset for your user account at localhost:8000.
+
+Please go to the following page and choose a new password:
+
+http://localhost:8000/accounts/reset/MQ/53d-451f62984e3426883c9d/
+
+Your username, in case you've forgotten: sebastian
+
+Thanks for using our site!
+
+The localhost:8000 team
+
+
+
+-------------------------------------------------------------------------------
