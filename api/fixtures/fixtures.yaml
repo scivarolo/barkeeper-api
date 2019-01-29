@@ -1,0 +1,59 @@
+- model: api.Cocktail
+  pk: 1
+  fields:
+    name: Last Word
+    instructions: Shake with ice and strain into a chilled coupe.
+    createdby: 1
+    notes: My favorite cocktail!
+- model: api.CocktailIngredient
+  pk: 1
+  fields:
+    cocktail_id: 1
+    ingredient_id: 1
+    amount: 0.75
+    unit: oz
+    sort_order: 1
+- model: api.CocktailIngredient
+  pk: 2
+  fields:
+    cocktail_id: 1
+    ingredient_id: 2
+    amount: 0.75
+    unit: oz
+    sort_order: 2
+- model: api.CocktailIngredient
+  pk: 3
+  fields:
+    cocktail_id: 1
+    ingredient_id: 3
+    amount: 0.75
+    unit: oz
+    sort_order: 3
+- model: api.CocktailIngredient
+  pk: 4
+  fields:
+    cocktail_id: 1
+    ingredient_id: 4
+    amount: 0.75
+    unit: oz
+    sort_order: 4
+- model: api.Ingredient
+  pk: 1
+  fields:
+    name: Gin
+    createdby: 1
+- model: api.Ingredient
+  pk: 2
+  fields:
+    name: Green Chartreuse
+    createdby: 1
+- model: api.Ingredient
+  pk: 3
+  fields:
+    name: Maraschino Liqueur
+    createdby: 1
+- model: api.Ingredient
+  pk: 4
+  fields:
+    name: Lime Juice
+    createdby: 1
