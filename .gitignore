@@ -36,6 +36,9 @@ dist/
 bower_components
 __pycache__
 /migrations
+/sent_emails
+sent_emails
+*.log
 *.pyc
 bin
 obj
