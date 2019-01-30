@@ -3,18 +3,13 @@ from django.contrib.auth.models import User
 from rest_framework import serializers, viewsets, routers
 
 from .models import *
-
-class CocktailSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Cocktail
-        fields = ('name', 'instructions', 'notes')
-
-class CocktailViewSet(viewsets.ModelViewSet):
-    queryset = Cocktail.objects.all()
-    serializer_class = CocktailSerializer
+from . import views
 
 router = routers.DefaultRouter()
-router.register(r'cocktails', CocktailViewSet)
+router.register(r'cocktails', views.CocktailViewSet)
+router.register(r'ingredients', views.IngredientViewSet)
+router.register(r'cocktailingredients', views.CocktailIngredientViewSet)
+router.register(r'products', views.ProductViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

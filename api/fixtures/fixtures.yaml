@@ -3,7 +3,7 @@
   fields:
     name: Last Word
     instructions: Shake with ice and strain into a chilled coupe.
-    createdby: 1
+    created_by: 1
     notes: My favorite cocktail!
 - model: api.CocktailIngredient
   pk: 1
@@ -41,19 +41,19 @@
   pk: 1
   fields:
     name: Gin
-    createdby: 1
+    created_by: 1
 - model: api.Ingredient
   pk: 2
   fields:
     name: Green Chartreuse
-    createdby: 1
+    created_by: 1
 - model: api.Ingredient
   pk: 3
   fields:
     name: Maraschino Liqueur
-    createdby: 1
+    created_by: 1
 - model: api.Ingredient
   pk: 4
   fields:
     name: Lime Juice
-    createdby: 1
+    created_by: 1
