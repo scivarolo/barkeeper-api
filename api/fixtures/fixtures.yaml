@@ -5,6 +5,25 @@
     instructions: Shake with ice and strain into a chilled coupe.
     created_by: 1
     notes: My favorite cocktail!
+- model: api.Cocktail
+  pk: 2
+  fields:
+    name: Negroni
+    instructions: Stir with ice and strain in to chilled coupe or over ice in a chilled rocks glass.
+    created_by: 1
+- model: api.Cocktail
+  pk: 3
+  fields:
+    name: Americano Highball
+    instructions: Build in a chilled Collins glass.\nAdd ice and top with 2.5 oz. Club Soda.]nGarnish with half an orange wheel.
+    created_by: 1
+- model: api.Cocktail
+  pk: 4
+  fields:
+    name: Bee's Knees
+    instructions: Shake with ice and strain into a chilled coupe.\nNo garnish.
+    created_by: 1
+
 - model: api.CocktailIngredient
   pk: 1
   fields:
@@ -13,6 +32,7 @@
     amount: 0.75
     unit: oz
     sort_order: 1
+
 - model: api.CocktailIngredient
   pk: 2
   fields:
@@ -21,6 +41,7 @@
     amount: 0.75
     unit: oz
     sort_order: 2
+
 - model: api.CocktailIngredient
   pk: 3
   fields:
@@ -29,6 +50,7 @@
     amount: 0.75
     unit: oz
     sort_order: 3
+
 - model: api.CocktailIngredient
   pk: 4
   fields:
@@ -37,23 +59,185 @@
     amount: 0.75
     unit: oz
     sort_order: 4
+
+- model: api.CocktailIngredient
+  pk: 5
+  fields:
+    cocktail_id: 2
+    ingredient_id: 1
+    amount: 1.25
+    unit: oz
+    sort_order: 1
+
+- model: api.CocktailIngredient
+  pk: 6
+  fields:
+    cocktail_id: 2
+    ingredient_id: 5
+    amount: 1.25
+    unit: oz
+    sort_order: 2
+
+- model: api.CocktailIngredient
+  pk: 7
+  fields:
+    cocktail_id: 2
+    ingredient_id: 6
+    amount: 1.25
+    unit: oz
+    sort_order: 3
+
+- model: api.CocktailIngredient
+  pk: 8
+  fields:
+    cocktail_id: 3
+    ingredient_id: 6
+    amount: 1
+    unit: oz
+    sort_order: 1
+
+- model: api.CocktailIngredient
+  pk: 9
+  fields:
+    cocktail_id: 3
+    ingredient_id: 5
+    amount: 1
+    unit: oz
+    sort_order: 2
+
+- model: api.CocktailIngredient
+  pk: 10
+  fields:
+    cocktail_id: 3
+    ingredient_id: 10
+    amount: 2.5
+    unit: oz
+    sort_order: 3
+
+- model: api.CocktailIngredient
+  pk: 11
+  fields:
+    cocktail_id: 4
+    ingredient_id: 1
+    amount: 2
+    unit: oz
+    sort_order: 1
+
+- model: api.CocktailIngredient
+  pk: 12
+  fields:
+    cocktail_id: 4
+    ingredient_id: 11
+    amount: 0.75
+    unit: oz
+    sort_order: 3
+
+- model: api.CocktailIngredient
+  pk: 13
+  fields:
+    cocktail_id: 4
+    ingredient_id: 9
+    amount: 0.75
+    unit: oz
+    sort_order: 2
+
+
 - model: api.Ingredient
   pk: 1
   fields:
     name: Gin
+    liquid: true
     created_by: 1
+
 - model: api.Ingredient
   pk: 2
   fields:
     name: Green Chartreuse
+    liquid: true
     created_by: 1
+
 - model: api.Ingredient
   pk: 3
   fields:
     name: Maraschino Liqueur
+    liquid: true
     created_by: 1
+
 - model: api.Ingredient
   pk: 4
   fields:
     name: Lime Juice
+    liquid: true
     created_by: 1
+
+- model: api.Ingredient
+  pk: 5
+  fields:
+    name: Campari
+    liquid: true
+    created_by: 1
+
+- model: api.Ingredient
+  pk: 6
+  fields:
+    name: Sweet Vermouth
+    liquid: true
+    created_by: 1
+
+- model: api.Ingredient
+  pk: 7
+  fields:
+    name: Vodka
+    liquid: true
+    created_by: 1
+
+- model: api.Ingredient
+  pk: 8
+  fields:
+    name: Rum
+    liquid: true
+    created_by: 1
+
+- model: api.Ingredient
+  pk: 9
+  fields:
+    name: Lemon Juice
+    liquid: true
+    created_by: 1
+
+- model: api.Ingredient
+  pk: 10
+  fields:
+    name: Club Soda
+    liquid: true
+    created_by: 1
+
+- model: api.Ingredient
+  pk: 11
+  fields:
+    name: Honey Syrup
+    liquid: true
+    created_by: 1
+
+- model: api.Ingredient
+  pk: 12
+  fields:
+    name: Orange Bitters
+    liquid: true
+    created_by: 1
+
+- model: api.Ingredient
+  pk: 13
+  fields:
+    name: Rye Whiskey
+    liquid: true
+    created_by: 1
+
+
+# - model: api.UserCocktail
+#   pk: 1
+#   fields:
+#     user_id:
+#     cocktail_id:
+#     is_saved:
+#     make_count:
