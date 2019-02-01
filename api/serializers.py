@@ -38,7 +38,7 @@ class UserCocktailSerializer(serializers.ModelSerializer):
 
 class UserTabSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserTab
+        model = UserTabCocktail
         fields = '__all__'
 
 
