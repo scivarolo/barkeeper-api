@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib.auth.models import User
 from rest_framework import serializers, viewsets, routers
+from rest_framework.authtoken import views as drf_views
 
 from .models import *
 from . import views
@@ -17,5 +18,6 @@ router.register(r'user_shopping', views.UserShoppingViewSet, 'user_shopping')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^token-auth/', drf_views.obtain_auth_token, name='auth'),
 ]
