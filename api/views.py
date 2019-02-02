@@ -56,7 +56,7 @@ class UserProductViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return UserProduct.objects.filter(user=self.request.user)
     serializer_class = UserProductSerializer
-    filter_fields = ('product__name', 'product', 'amount_available')
+    filter_fields = ('product__name', 'product', 'amount_available', 'user')
     search_fields = ('product__name')
 
 class UserShoppingViewSet(viewsets.ModelViewSet):
@@ -64,5 +64,5 @@ class UserShoppingViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return UserShopping.objects.filter(user=self.request.user)
     serializer_class = UserShoppingSerializer
-    filter_fields = ('product', 'ingredient', 'product__name', 'ingredient__name')
+    filter_fields = ('product', 'ingredient', 'product__name', 'ingredient__name', 'user')
     search_fields = ('product__name', 'ingredient__name')
