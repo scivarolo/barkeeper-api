@@ -29,6 +29,9 @@ class CocktailIngredient(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     unit = models.CharField(max_length=120)
 
+    class Meta:
+        ordering = ['sort_order']
+
     def __str__(self):
         return f"{self.ingredient.name} for {self.cocktail.name}"
 
