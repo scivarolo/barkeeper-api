@@ -7,10 +7,10 @@ from .models import *
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'cocktails', views.CocktailViewSet)
-router.register(r'ingredients', views.IngredientViewSet)
-router.register(r'cocktailingredients', views.CocktailIngredientViewSet)
-router.register(r'products', views.ProductViewSet)
+router.register(r'cocktails', views.CocktailViewSet, 'cocktails')
+router.register(r'ingredients', views.IngredientViewSet, 'ingredients')
+router.register(r'cocktailingredients', views.CocktailIngredientViewSet, 'cocktailingredients')
+router.register(r'products', views.ProductViewSet, 'products')
 router.register(r'user_cocktails', views.UserCocktailViewSet, 'user_cocktails')
 router.register(r'user_tab', views.UserTabViewSet, 'user_tab')
 router.register(r'user_products', views.UserProductViewSet, 'user_products')
