@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets, filters
+from django_filters import rest_framework as django_filters
 
 from .serializers import *
 from .models import *
@@ -19,12 +20,19 @@ class IngredientViewSet(viewsets.ModelViewSet):
     search_fields = ('name',)
     filter_fields = ('name',)
 
+
+class CocktailIngredientFilterSet(django_filters.FilterSet):
+    ingredient_name = django_filters.CharFilter(field_name="ingredient__name", lookup_expr='icontains')
+    class Meta:
+        model = CocktailIngredient
+        fields = ('ingredient__name', 'cocktail')
+
 class CocktailIngredientViewSet(viewsets.ModelViewSet):
     """ API endpoint for the CocktailIngredient join table. """
     # TODO: Does this need to be an available endpoint if I can include them in Cocktail
     queryset = CocktailIngredient.objects.all()
     serializer_class = CocktailIngredientSerializer
-    filter_fields = '__all__'
+    filterset_class = CocktailIngredientFilterSet
 
 class ProductViewSet(viewsets.ModelViewSet):
     """ API endpoint that allows products to be viewed or edited. """
