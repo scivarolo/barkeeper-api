@@ -16,6 +16,11 @@ class CocktailViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
+    # allow partial update with PATCH
+    def partial_update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
+
 
 class IngredientViewSet(viewsets.ModelViewSet):
     """ API endpoint that allows ingredients to be viewed or edited. """
