@@ -12,6 +12,10 @@ class CocktailViewSet(viewsets.ModelViewSet):
     search_fields = ('name', 'ingredients__name')
     filter_fields = ('name', 'notes', 'ingredients__name')
 
+    # assign user from token in request header
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 
 class IngredientViewSet(viewsets.ModelViewSet):
     """ API endpoint that allows ingredients to be viewed or edited. """

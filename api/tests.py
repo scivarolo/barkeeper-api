@@ -21,7 +21,6 @@ class CocktailsTest(APITestCase):
             "name": "Test Cocktail",
             "instructions": "Instructions",
             "notes": "Hey",
-            "created_by": 1,
             "ingredients": [
                 {
                     "ingredient": {
@@ -30,7 +29,6 @@ class CocktailsTest(APITestCase):
                     "sort_order": 1,
                     "amount": 1.25,
                     "unit": "oz",
-                    "created_by": 1
                 },
                 {
                     "ingredient": {
@@ -39,12 +37,13 @@ class CocktailsTest(APITestCase):
                     "sort_order": 2,
                     "amount": 1.25,
                     "unit": "oz",
-                    "created_by": 1
                 },
             ]
         }
 
         post_response = self.client.post('/api/cocktails/', cocktail, format='json')
+        print("response", post_response)
+        # print("token", post_response.request.values())
         # check for item in database, and check that it is in the post response
         self.assertEqual(Cocktail.objects.count(), 1)
         self.assertContains(post_response, "Test Cocktail", status_code=201)

@@ -24,10 +24,10 @@ class CocktailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-
+        # print("user", user)
         # Pull out the ingredient data so we can create the relations.
         ingredients_data = validated_data.pop('cocktailingredient_set')
-
+        print("data", validated_data)
         # Create the cocktail
         cocktail = Cocktail.objects.create(**validated_data)
 
@@ -46,7 +46,8 @@ class CocktailSerializer(serializers.ModelSerializer):
                         try:
                             ingredient_entity = Ingredient.objects.get(name=ing_value)
                         except Ingredient.DoesNotExist:
-                            ingredient_entity = Ingredient.objects.create(name=ing_value)
+                            # grab user from newly created cocktail
+                            ingredient_entity = Ingredient.objects.create(name=ing_value, created_by=cocktail.created_by)
                         # print("In Database", ingredient_entity)
                         cocktail_ingredient['ingredient'] = ingredient_entity
                 else:
