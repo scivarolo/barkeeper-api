@@ -38,7 +38,6 @@ class CocktailIngredientFilterSet(django_filters.FilterSet):
 
 class CocktailIngredientViewSet(viewsets.ModelViewSet):
     """ API endpoint for the CocktailIngredient join table. """
-    # TODO: Does this need to be an available endpoint if I can include them in Cocktail
     queryset = CocktailIngredient.objects.all()
     serializer_class = CocktailIngredientSerializer
     filterset_class = CocktailIngredientFilterSet
