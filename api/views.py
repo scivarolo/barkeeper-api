@@ -49,6 +49,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     filter_fields = ('size', 'unit', 'ingredient', 'name')
     search_fields = ('name', 'ingredient')
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 class UserCocktailViewSet(viewsets.ModelViewSet):
     """ API endpoint that retrieves the cocktails saved by the current user. """
     def get_queryset(self):
@@ -78,10 +81,6 @@ class UserProductViewSet(viewsets.ModelViewSet):
     serializer_class = UserProductSerializer
     filter_fields = ('product__name', 'product', 'amount_available', 'user')
     search_fields = ('product__name')
-
-    # assign user from token in request header
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
     # allow partial update with PATCH
     def partial_update(self, request, *args, **kwargs):

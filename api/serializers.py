@@ -5,7 +5,7 @@ from .models import *
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ('name',)
+        fields = ('name', 'id', 'liquid')
 
 
 class CocktailIngredientSerializer(serializers.ModelSerializer):
@@ -82,12 +82,21 @@ class UserTabSerializer(serializers.ModelSerializer):
 class UserProductSerializer(serializers.ModelSerializer):
     # Include the product information
     product = ProductSerializer(read_only=True)
-    # product_id = serializers.PrimaryKeyRelatedField(
-    #     queryset=Product.objects.all(), source='product', write_only=True
-    # )
+    product_id = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(), source='product')
+
     class Meta:
         model = UserProduct
-        fields = '__all__'
+        fields = ('id', 'quantity', 'product', 'product_id', 'user', 'amount_available',)
+        # depth = 1
+        extra_kwargs = {
+            'user': {
+                'default': serializers.CreateOnlyDefault(
+                    serializers.CurrentUserDefault()
+                ),
+                # perhaps add 'read_only': True here too.
+            }
+        }
 
 
 class UserShoppingSerializer(serializers.ModelSerializer):
