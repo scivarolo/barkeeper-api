@@ -80,6 +80,11 @@ class UserTabSerializer(serializers.ModelSerializer):
 
 
 class UserProductSerializer(serializers.ModelSerializer):
+    # Include the product information
+    product = ProductSerializer(read_only=True)
+    # product_id = serializers.PrimaryKeyRelatedField(
+    #     queryset=Product.objects.all(), source='product', write_only=True
+    # )
     class Meta:
         model = UserProduct
         fields = '__all__'

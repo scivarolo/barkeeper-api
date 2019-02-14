@@ -53,9 +53,13 @@ class UserCocktailViewSet(viewsets.ModelViewSet):
     """ API endpoint that retrieves the cocktails saved by the current user. """
     def get_queryset(self):
         return UserCocktail.objects.filter(user=self.request.user)
+
     serializer_class = UserCocktailSerializer
     filter_fields = ('cocktail', 'is_saved', 'user', 'make_count')
     search_fields = ('cocktail__name')
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class UserTabViewSet(viewsets.ModelViewSet):
@@ -74,6 +78,15 @@ class UserProductViewSet(viewsets.ModelViewSet):
     serializer_class = UserProductSerializer
     filter_fields = ('product__name', 'product', 'amount_available', 'user')
     search_fields = ('product__name')
+
+    # assign user from token in request header
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    # allow partial update with PATCH
+    def partial_update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
 
 class UserShoppingViewSet(viewsets.ModelViewSet):
     """ API endpoint that retrieves the products/ingredients in the current user's shopping list."""

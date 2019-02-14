@@ -72,6 +72,9 @@ class UserProduct(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     amount_available = models.DecimalField(max_digits=25, decimal_places=2)
 
+    class Meta:
+        ordering = ['product__name']
+
     def __str__(self):
         return f"{self.product.name} in {self.user.username}"
 
