@@ -43,6 +43,9 @@ class Product(models.Model):
     unit = models.CharField(max_length=20)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return f"{self.name} ({self.ingredient.name})"
 
