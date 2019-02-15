@@ -116,17 +116,26 @@ class UserShoppingSerializer(serializers.ModelSerializer):
     def validate(self, data):
         '''UserShopping items can be an ingredient OR a product, but not both, and not neither.'''
 
-        product = data['product']
-        ingredient = data['ingredient']
+        if self.context['request']._request.method is "POST":
+            product = data['product']
+            ingredient = data['ingredient']
 
-        if product is None and ingredient is None:
-            raise serializers.ValidationError("Product or Ingredient must be provided.")
+            if product is None and ingredient is None:
+                raise serializers.ValidationError("Product or Ingredient must be provided.")
 
-        if product is not None and ingredient is not None:
-            raise serializers.ValidationError("You cannot provide Product AND Ingredient. Use only one.")
+            if product is not None and ingredient is not None:
+                raise serializers.ValidationError("You cannot provide Product AND Ingredient. Use only one.")
 
         return data
 
     class Meta:
         model = UserShopping
         fields = '__all__'
+        extra_kwargs = {
+            'user': {
+                'default': serializers.CreateOnlyDefault(
+                    serializers.CurrentUserDefault()
+                ),
+                # perhaps add 'read_only': True here too.
+            }
+        }
