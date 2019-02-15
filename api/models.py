@@ -7,6 +7,9 @@ class Ingredient(models.Model):
     liquid = models.BooleanField(default=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
