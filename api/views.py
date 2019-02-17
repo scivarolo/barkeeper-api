@@ -61,9 +61,6 @@ class UserCocktailViewSet(viewsets.ModelViewSet):
     filter_fields = ('cocktail', 'is_saved', 'user', 'make_count')
     search_fields = ('cocktail__name')
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
-
 
 class UserTabViewSet(viewsets.ModelViewSet):
     """ API endpoint that retrives the cocktails queued to be made by the current user. """

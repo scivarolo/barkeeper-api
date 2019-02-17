@@ -68,15 +68,40 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class UserCocktailSerializer(serializers.ModelSerializer):
+    cocktail = CocktailSerializer(read_only=True)
+    cocktail_id = serializers.PrimaryKeyRelatedField(
+        queryset=Cocktail.objects.all(), source='cocktail'
+    )
     class Meta:
         model = UserCocktail
         fields = '__all__'
+        extra_kwargs = {
+            'user': {
+                'default': serializers.CreateOnlyDefault(
+                    serializers.CurrentUserDefault()
+                ),
+                # perhaps add 'read_only': True here too.
+            }
+        }
 
 
 class UserTabSerializer(serializers.ModelSerializer):
+    cocktail = CocktailSerializer(read_only=True)
+    cocktail_id = serializers.PrimaryKeyRelatedField(
+        queryset=Cocktail.objects.all(), source='cocktail'
+    )
+
     class Meta:
         model = UserTabCocktail
         fields = '__all__'
+        extra_kwargs = {
+            'user': {
+                'default': serializers.CreateOnlyDefault(
+                    serializers.CurrentUserDefault()
+                ),
+                # perhaps add 'read_only': True here too.
+            }
+        }
 
 
 class UserProductSerializer(serializers.ModelSerializer):
