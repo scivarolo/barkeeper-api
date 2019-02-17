@@ -25,6 +25,7 @@ class CocktailsTest(APITestCase):
                 {
                     "ingredient": {
                         "name": "Gin",
+                        "liquid": True,
                     },
                     "sort_order": 1,
                     "amount": 1.25,
@@ -32,6 +33,7 @@ class CocktailsTest(APITestCase):
                 },
                 {
                     "ingredient": {
+                        "liquid": True,
                         "name": "Green Chartreuse",
                     },
                     "sort_order": 2,
@@ -47,3 +49,4 @@ class CocktailsTest(APITestCase):
         # check for item in database, and check that it is in the post response
         self.assertEqual(Cocktail.objects.count(), 1)
         self.assertContains(post_response, "Test Cocktail", status_code=201)
+        self.assertContains(post_response, "Gin", status_code=201)
