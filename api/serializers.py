@@ -23,11 +23,69 @@ class CocktailSerializer(serializers.ModelSerializer):
         model = Cocktail
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        # Pull out the ingredient data so we can update the relations.
+        ingredients_data = validated_data.pop('cocktailingredient_set')
+        ingredients = (instance.cocktailingredient_set).all()
+        ingredients = list(ingredients)
+
+        # Update cocktail specific data
+        instance.name = validated_data.get('name', instance.name)
+        instance.instructions = validated_data.get('instructions', instance.instructions)
+        instance.notes = validated_data.get('notes', instance.notes)
+        instance.save()
+
+        for ingredient_data in ingredients_data:
+            try:
+                cocktail_ingredient = ingredients.pop(0)
+                cocktail_ingredient.sort_order = ingredient_data.get('sort_order', cocktail_ingredient.sort_order)
+                cocktail_ingredient.amount = ingredient_data.get('amount', cocktail_ingredient.amount)
+                cocktail_ingredient.unit = ingredient_data.get('unit', cocktail_ingredient.unit)
+                for key, value in ingredient_data.items():
+                    if key is "ingredient":
+                        for ing_key, ing_value in value.items():
+                            if ing_key is "name":
+                                name = ing_value
+                            if ing_key is "liquid":
+                                liquid = ing_value
+
+                        try:
+                            ingredient_entity = Ingredient.objects.get(name=name, liquid=liquid)
+                        except Ingredient.DoesNotExist:
+                            ingredient_entity = Ingredient.objects.create(name=name, liquid=liquid, created_by=instance.created_by)
+                cocktail_ingredient.ingredient = ingredient_entity
+                cocktail_ingredient.save()
+
+            except IndexError:
+                #this is completely new ingredient relation
+                cocktail_ingredient = dict()
+
+                for key, value in ingredient_data.items():
+                    if key is "ingredient":
+                        for ing_key, ing_value in value.items():
+                            if ing_key is "name":
+                                name = ing_value
+                            if ing_key is "liquid":
+                                liquid = ing_value
+
+                        try:
+                            ingredient_entity = Ingredient.objects.get(name=name, liquid=liquid)
+                        except Ingredient.DoesNotExist:
+                            ingredient_entity = Ingredient.objects.create(name=name, liquid=liquid, created_by=instance.created_by)
+                        cocktail_ingredient['ingredient'] = ingredient_entity
+                    else:
+                        cocktail_ingredient[key] = value
+                CocktailIngredient.objects.create(**cocktail_ingredient, cocktail=instance)
+        if len(ingredients) > 0 :
+            for cocktail_ingredient in ingredients:
+                cocktail_ingredient.delete()
+        return instance
+
+
     def create(self, validated_data):
         # print("user", user)
         # Pull out the ingredient data so we can create the relations.
         ingredients_data = validated_data.pop('cocktailingredient_set')
-        print("data", validated_data)
         # Create the cocktail
         cocktail = Cocktail.objects.create(**validated_data)
 
@@ -37,19 +95,23 @@ class CocktailSerializer(serializers.ModelSerializer):
         # Loop through ingredients, and find or create an Ingredient in the database.
         # Return the cocktail_ingredient dict with the Ingredient object in it.
         for ingredient_dict in ingredients_data:
-            # print("ingredient", ingredient_dict)
             cocktail_ingredient = dict()
             for key, value in ingredient_dict.items():
                 if key is "ingredient":
                     for ing_key, ing_value in value.items():
                         # print("name", ing_key, ing_value)
-                        try:
-                            ingredient_entity = Ingredient.objects.get(name=ing_value)
-                        except Ingredient.DoesNotExist:
-                            # grab user from newly created cocktail
-                            ingredient_entity = Ingredient.objects.create(name=ing_value, created_by=cocktail.created_by)
-                        # print("In Database", ingredient_entity)
-                        cocktail_ingredient['ingredient'] = ingredient_entity
+                        if ing_key is "name":
+                            name = ing_value
+                        if ing_key is "liquid":
+                            liquid = ing_value
+
+                    try:
+                        ingredient_entity = Ingredient.objects.get(name=name, liquid=liquid)
+                    except Ingredient.DoesNotExist:
+                        # grab user from newly created cocktail
+                        ingredient_entity = Ingredient.objects.create(name=name, liquid=liquid, created_by=cocktail.created_by)
+                    # print("In Database", ingredient_entity)
+                    cocktail_ingredient['ingredient'] = ingredient_entity
                 else:
                     cocktail_ingredient[key] = value
             ingredients_list.append(cocktail_ingredient)
