@@ -4,7 +4,11 @@ from django.db import models
 # Create your models here.
 class Ingredient(models.Model):
     name = models.CharField(max_length=120)
+    liquid = models.BooleanField(default=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -25,8 +29,11 @@ class CocktailIngredient(models.Model):
     cocktail = models.ForeignKey(Cocktail, on_delete=models.PROTECT)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT)
     sort_order = models.PositiveIntegerField()
-    amount = models.PositiveIntegerField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     unit = models.CharField(max_length=120)
+
+    class Meta:
+        ordering = ['sort_order']
 
     def __str__(self):
         return f"{self.ingredient.name} for {self.cocktail.name}"
@@ -38,6 +45,9 @@ class Product(models.Model):
     size = models.PositiveIntegerField()
     unit = models.CharField(max_length=20)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return f"{self.name} ({self.ingredient.name})"
@@ -66,7 +76,10 @@ class UserProduct(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    amount_available = models.PositiveIntegerField()
+    amount_available = models.DecimalField(max_digits=25, decimal_places=2)
+
+    class Meta:
+        ordering = ['product__name']
 
     def __str__(self):
         return f"{self.product.name} in {self.user.username}"

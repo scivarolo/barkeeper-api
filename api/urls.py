@@ -1,17 +1,23 @@
 from django.conf.urls import include, url
-from django.contrib.auth.models import User
-from rest_framework import serializers, viewsets, routers
+from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
 
 from .models import *
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'cocktails', views.CocktailViewSet)
-router.register(r'ingredients', views.IngredientViewSet)
-router.register(r'cocktailingredients', views.CocktailIngredientViewSet)
-router.register(r'products', views.ProductViewSet)
+router.register('cocktails', views.CocktailViewSet, 'cocktails')
+router.register('ingredients', views.IngredientViewSet, 'ingredients')
+router.register('cocktailingredients', views.CocktailIngredientViewSet, 'cocktailingredients')
+router.register('products', views.ProductViewSet, 'products')
+router.register('user_cocktails', views.UserCocktailViewSet, 'user_cocktails')
+router.register('user_tab', views.UserTabViewSet, 'user_tab')
+router.register('user_products', views.UserProductViewSet, 'user_products')
+router.register('user_shopping', views.UserShoppingViewSet, 'user_shopping')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    # url(r'^api-token-auth/', obtain_auth_token),
+    url(r'^api-token-auth/', views.CustomAuth.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
