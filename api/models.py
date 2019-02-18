@@ -35,8 +35,8 @@ class CocktailIngredient(models.Model):
     class Meta:
         ordering = ['sort_order']
 
-    def __str__(self):
-        return f"{self.ingredient.name} for {self.cocktail.name}"
+    # def __str__(self):
+    #     return f"{self.ingredient.name} for {self.cocktail.name}"
 
 
 class Product(models.Model):
@@ -49,8 +49,8 @@ class Product(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __str__(self):
-        return f"{self.name} ({self.ingredient.name})"
+    # def __str__(self):
+    #     return f"{self.name} ({self.ingredient.name})"
 
 
 class UserCocktail(models.Model):
@@ -59,8 +59,8 @@ class UserCocktail(models.Model):
     is_saved = models.BooleanField(default=True)
     make_count = models.PositiveIntegerField()
 
-    def __str__(self):
-        return f"{self.cocktail.name} for {self.user.name}"
+    # def __str__(self):
+    #     return f"{self.cocktail.name} for {self.user.name}"
 
 
 class UserTabCocktail(models.Model):
@@ -68,8 +68,8 @@ class UserTabCocktail(models.Model):
     cocktail = models.ForeignKey(Cocktail, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
 
-    def __str__(self):
-        return f"{self.cocktail.name} in {self.user.username}'s tab"
+    # def __str__(self):
+    #     return f"{self.cocktail.name} in {self.user.username}'s tab"
 
 
 class UserProduct(models.Model):
@@ -81,8 +81,8 @@ class UserProduct(models.Model):
     class Meta:
         ordering = ['product__name']
 
-    def __str__(self):
-        return f"{self.product.name} in {self.user.username}"
+    # def __str__(self):
+    #     return f"{self.product.name} in {self.user.username}"
 
 
 class UserShopping(models.Model):
@@ -91,9 +91,9 @@ class UserShopping(models.Model):
     product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
-    def __str__(self):
-        if self.ingredient:
-            return f"{self.ingredient.name} in {self.user.username}"
+    # def __str__(self):
+    #     if self.ingredient:
+    #         return f"{self.ingredient.name} in {self.user.username}"
 
-        if self.product:
-            return f"{self.product.name} in {self.user.username}"
+    #     if self.product:
+    #         return f"{self.product.name} in {self.user.username}"
