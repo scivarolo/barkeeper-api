@@ -62,6 +62,9 @@ class UserCocktail(models.Model):
     is_saved = models.BooleanField(default=True)
     make_count = models.PositiveIntegerField()
 
+    class Meta:
+        ordering = ['cocktail__name']
+
     def __str__(self):
         return f"{self.cocktail.name} for {self.user.name}"
 
