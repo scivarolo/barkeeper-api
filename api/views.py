@@ -76,7 +76,7 @@ class UserCocktailViewSet(viewsets.ModelViewSet):
         return UserCocktail.objects.filter(user=self.request.user)
 
     serializer_class = UserCocktailSerializer
-    filter_fields = ('cocktail', 'is_saved', 'user', 'make_count')
+    filter_fields = ('cocktail', 'cocktail_id', 'is_saved', 'user', 'make_count')
     search_fields = ('cocktail__name')
 
 
