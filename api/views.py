@@ -109,3 +109,10 @@ class UserShoppingViewSet(viewsets.ModelViewSet):
     serializer_class = UserShoppingSerializer
     filter_fields = ('product', 'ingredient', 'product__name', 'ingredient__name', 'user')
     search_fields = ('product__name', 'ingredient__name')
+
+
+class UserHistoryViewSet(viewsets.ModelViewSet):
+    """ API endpoint for storing a history of the cocktails a user has made. """
+    def get_queryset(self):
+        return UserHistory.objects.filter(user=self.request.user)
+    serializer_class = UserHistorySerializer

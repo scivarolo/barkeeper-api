@@ -120,3 +120,11 @@ class UserShopping(models.Model):
 
         if self.product:
             return f"{self.product.name} in {self.user.username}"
+
+
+class UserHistory(models.Model):
+    """ Contains a record of every Cocktail that a user has made, and when it was made."""
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    cocktail = models.ForeignKey("Cocktail", on_delete=models.PROTECT)
+    time = models.DateTimeField(default=timezone.now)

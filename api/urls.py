@@ -15,6 +15,7 @@ router.register('user_cocktails', views.UserCocktailViewSet, 'user_cocktails')
 router.register('user_tab', views.UserTabViewSet, 'user_tab')
 router.register('user_products', views.UserProductViewSet, 'user_products')
 router.register('user_shopping', views.UserShoppingViewSet, 'user_shopping')
+router.register('user_history', views.UserHistoryViewSet, 'user_history')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

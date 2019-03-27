@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import *
+from .models import Ingredient, Cocktail, CocktailIngredient, Product, UserCocktail, UserTabCocktail, UserProduct, UserShopping, UserHistory
 
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -224,5 +224,19 @@ class UserShoppingSerializer(serializers.ModelSerializer):
                     serializers.CurrentUserDefault()
                 ),
                 # perhaps add 'read_only': True here too.
+            }
+        }
+
+
+class UserHistorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserHistory
+        fields = "__all__"
+        extra_kwargs = {
+            'user': {
+                'default': serializers.CreateOnlyDefault(
+                    serializers.CurrentUserDefault()
+                ),
             }
         }
