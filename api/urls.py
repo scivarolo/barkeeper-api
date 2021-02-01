@@ -1,9 +1,7 @@
 from django.conf.urls import include, url
 from rest_framework.documentation import include_docs_urls
 from rest_framework import routers
-from rest_framework.authtoken.views import obtain_auth_token
 
-from .models import *
 from . import views
 
 router = routers.DefaultRouter()
@@ -15,6 +13,7 @@ router.register('user_cocktails', views.UserCocktailViewSet, 'user_cocktails')
 router.register('user_tab', views.UserTabViewSet, 'user_tab')
 router.register('user_products', views.UserProductViewSet, 'user_products')
 router.register('user_shopping', views.UserShoppingViewSet, 'user_shopping')
+router.register('user_history', views.UserHistoryViewSet, 'user_history')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

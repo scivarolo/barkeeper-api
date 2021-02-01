@@ -1,3 +1,5 @@
+""" Viewsets for API """
+
 from django.shortcuts import render
 from django_filters import rest_framework as django_filters
 from rest_framework import viewsets, filters
@@ -5,7 +7,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
-from .serializers import *
+from .serializers import CocktailSerializer, IngredientSerializer, CocktailIngredientSerializer, ProductSerializer, UserCocktailSerializer, UserTabSerializer, UserProductSerializer, UserHistorySerializer, UserShoppingSerializer
 from .models import *
 
 
@@ -109,3 +111,10 @@ class UserShoppingViewSet(viewsets.ModelViewSet):
     serializer_class = UserShoppingSerializer
     filter_fields = ('product', 'ingredient', 'product__name', 'ingredient__name', 'user')
     search_fields = ('product__name', 'ingredient__name')
+
+
+class UserHistoryViewSet(viewsets.ModelViewSet):
+    """ API endpoint for storing a history of the cocktails a user has made. """
+    def get_queryset(self):
+        return UserHistory.objects.filter(user=self.request.user)
+    serializer_class = UserHistorySerializer
